@@ -1,0 +1,17 @@
+Markov Chain Notes & Thoughts:
+
+You generate a table of keys and probabilities. The chain generates new text by randomly starting and moving through the tables.
+
+Steps:
+- Parse data and generate tables
+	- need to select how big the windows is (ie every n words)
+	- Have to mark starting words and ending words
+- Use input parameters to assemble new text from the table, moving randomly through it using probabilities
+
+Tweetbot Special Params:
+- Cannot use more than 240 characters
+
+Thoughts on how to do that:
+- Have program take in 3 command line args (twitter handle, #tokens to use, number of tweets to generate)
+- Program uses twitter api to pull the full tweet history, parses it, and then outputs a file with number of desired tweets. Will print the first tweet.  
+- Begin with just reading in a text file of tweets and parse them, move onto api after 
