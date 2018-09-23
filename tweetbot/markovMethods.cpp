@@ -65,14 +65,24 @@ int main(int argc, char* argv[]){
     string currWord = iter->first;
     
     
-    while((iter->second).size() != 0){
+    do{
       cout << currWord << " ";
       
       int secondRand = rand() % (iter->second).size(); 
       currWord = iter->second[secondRand];
-      iter->first = iter->second;
       
-    }
+      int advanceAmt = 0;
+      for(map<string, vector<string> >::const_iterator currIter = markovDict.begin(); currIter != markovDict.end(); ++currIter){
+        if(currIter->first == currWord){  
+          break;
+        }
+        advanceAmt++;
+      }
+      
+      iter = markovDict.begin();
+      advance(iter,advanceAmt);  //iterate iter so iter->first becomes word from previous iter->second
+      
+    } while((iter->second).size() != 0);
     
   
 
