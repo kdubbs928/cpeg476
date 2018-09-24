@@ -37,6 +37,10 @@ map<string, vector<string> > makeDict(vector<string> allWords){
   return markovChain;
 }
 
+string startSentence(){
+  
+}
+
 
 int main(int argc, char* argv[]){
     string filename = argv[1];
@@ -78,9 +82,35 @@ int main(int argc, char* argv[]){
       }
     }
     
+    int charCount = 280;
     
-    do{
+    do{  
       cout << currWord << " ";
+      charCount -= currWord.length();
+      
+      if(currWord.substr(currWord.length()-1,1) == "." || "?" || "!"){ //new sentence
+        int start = rand() % markovDict.size();
+        advance(iter, start); 
+    
+  
+        string currWord = iter->first; 
+    
+        for(iter; iter != markovDict.end(); iter++){
+          if(!(isupper(currWord[0]))){
+            iter++;
+            if(iter == markovDict.end()){
+              iter = markovDict.begin();
+            }
+          }
+          else{
+            break;
+          }
+        }
+        
+      } //end new sentence
+      
+      
+      
       
       int secondRand = rand() % (iter->second).size(); 
       currWord = iter->second[secondRand];
@@ -95,7 +125,8 @@ int main(int argc, char* argv[]){
       
       
       
-    } while(currWord.substr(currWord.length()-1,1) == "." || "?" || "!");  
+    } while(charCount > 0);  
+    
     
 
 
