@@ -66,8 +66,8 @@ int main(int argc, char* argv[]){
   
     string currWord = iter->first; 
     
-    for(iter; iter < markovDict.end(); iter++){
-      if(!(isupper(currWord[0])){
+    for(iter; iter != markovDict.end(); iter++){
+      if(!(isupper(currWord[0]))){
         iter++;
         if(iter == markovDict.end()){
           iter = markovDict.begin();
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]){
       
       
       
-    } while(currWord[(strlen(currWord)-1)] == '.' || '!' || '?');  
+    } while(currWord.substr(currWord.length()-1,1) == "." || "?" || "!");  
     
 
 
