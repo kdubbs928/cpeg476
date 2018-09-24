@@ -82,10 +82,6 @@ int main(int argc, char* argv[]){
     do{
       cout << currWord << " ";
       
-      //if(currWord[(strlen(currWord)-1)] == '.' || '!' || '?'){
-      //  break;
-      //}
-      
       int secondRand = rand() % (iter->second).size(); 
       currWord = iter->second[secondRand];
       
