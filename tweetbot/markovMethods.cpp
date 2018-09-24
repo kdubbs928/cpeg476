@@ -18,7 +18,7 @@ vector<string> readFile(string name){
     string word;
     ifstream file;
 
-    file.open(name);
+    file.open(name.c_str());
 
     while (file >> word){
         allWords.push_back(word);
@@ -59,7 +59,6 @@ int main(int argc, char* argv[]){
     }
     
     
-    
     //--making final output string
     
     map<string, vector<string> >::const_iterator iter = markovDict.begin();
@@ -67,12 +66,12 @@ int main(int argc, char* argv[]){
     int start = rand() % markovDict.size();
     advance(iter, start); 
     
-  
     string currWord = iter->first; 
     
     for(iter; iter != markovDict.end(); iter++){
       if(!(isupper(currWord[0]))){
         iter++;
+        currWord = iter->first; 
         if(iter == markovDict.end()){
           iter = markovDict.begin();
         }
@@ -82,18 +81,20 @@ int main(int argc, char* argv[]){
       }
     }
     
+    
+    
     int charCount = 280;
     
     do{  
       cout << currWord << " ";
-      charCount -= currWord.length();
+      charCount -= currWord.length() + 1;
       
       if(currWord.substr(currWord.length()-1,1) == "." || "?" || "!"){ //new sentence
         int start = rand() % markovDict.size();
         advance(iter, start); 
     
   
-        string currWord = iter->first; 
+        currWord = iter->first; 
     
         for(iter; iter != markovDict.end(); iter++){
           if(!(isupper(currWord[0]))){
@@ -109,7 +110,7 @@ int main(int argc, char* argv[]){
         
       } //end new sentence
       
-      
+      currWord = iter->first; 
       
       
       int secondRand = rand() % (iter->second).size(); 
