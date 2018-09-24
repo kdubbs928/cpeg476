@@ -9,6 +9,7 @@
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <cstdlib>
 
 using namespace std;
 
@@ -60,31 +61,47 @@ int main(int argc, char* argv[]){
     map<string, vector<string> >::const_iterator iter = markovDict.begin();
     
     int start = rand() % markovDict.size();
-    advance(iter, start);                 
+    advance(iter, start); 
     
-    string currWord = iter->first;
+  
+    string currWord = iter->first; 
+    
+    for(iter; iter < markovDict.end(); iter++){
+      if(!(isupper(currWord[0])){
+        iter++;
+        if(iter == markovDict.end()){
+          iter = markovDict.begin();
+        }
+      }
+      else{
+        break;
+      }
+    }
     
     
     do{
       cout << currWord << " ";
       
+      //if(currWord[(strlen(currWord)-1)] == '.' || '!' || '?'){
+      //  break;
+      //}
+      
       int secondRand = rand() % (iter->second).size(); 
       currWord = iter->second[secondRand];
       
       int advanceAmt = 0;
-      for(map<string, vector<string> >::const_iterator currIter = markovDict.begin(); currIter != markovDict.end(); ++currIter){
-        if(currIter->first == currWord){  
-          break;
-        }
+      for(map<string, vector<string> >::const_iterator currIter = markovDict.begin(); currIter->first != currWord; ++currIter){
         advanceAmt++;
       }
       
       iter = markovDict.begin();
       advance(iter,advanceAmt);  //iterate iter so iter->first becomes word from previous iter->second
       
-    } while((iter->second).size() != 0);
+      
+      
+    } while(currWord[(strlen(currWord)-1)] == '.' || '!' || '?');  
     
-  
+
 
     return 0;
 }
